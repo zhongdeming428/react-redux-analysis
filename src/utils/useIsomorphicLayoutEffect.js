@@ -9,6 +9,8 @@ import { useEffect, useLayoutEffect } from 'react'
 // is created synchronously, otherwise a store update may occur before the
 // subscription is created and an inconsistent state may be observed
 
+// 参考：https://reactjs.org/docs/hooks-reference.html#uselayouteffect
+
 export const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' &&
   typeof window.document !== 'undefined' &&

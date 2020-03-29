@@ -50,6 +50,7 @@ export function createConnect({
   mergePropsFactories = defaultMergePropsFactories,
   selectorFactory = defaultSelectorFactory
 } = {}) {
+  // 这是我们真正使用到的 connect 函数
   return function connect(
     mapStateToProps,
     mapDispatchToProps,
@@ -63,6 +64,8 @@ export function createConnect({
       ...extraOptions
     } = {}
   ) {
+    // match 函数的第二个参数是一个函数数组，通过将第一个参数作为调用参数，依次顺序调用第二个参数内的函数来获取结果
+    // 返回的函数就是经过包装后的对应函数
     const initMapStateToProps = match(
       mapStateToProps,
       mapStateToPropsFactories,

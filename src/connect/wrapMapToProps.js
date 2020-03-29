@@ -19,6 +19,9 @@ export function wrapMapToPropsConstant(getConstant) {
 // A length of one signals that mapToProps does not depend on props from the parent component.
 // A length of zero is assumed to mean mapToProps is getting args via arguments or ...args and
 // therefore not reporting its length accurately..
+// 该函数用于计算 mapToProps 是否需要使用到 props
+// 依据是 function.length，如果 function.length === 1 就说明只需要 stateOrDispatch
+// 如果 function.length !== 1，说明就需要 props 进行计算。
 export function getDependsOnOwnProps(mapToProps) {
   return mapToProps.dependsOnOwnProps !== null &&
     mapToProps.dependsOnOwnProps !== undefined
@@ -47,6 +50,9 @@ export function wrapMapToPropsFunc(mapToProps, methodName) {
     }
 
     // allow detectFactoryAndVerify to get ownProps
+    // 第一次运行时将 dependsOnOwnProps 设置成 true
+    // 使得 detectFactoryAndVerify 在运行的时候可以获得第二个参数，等第二次运行时
+    // proxy.mapToProps 和 denpendsOnOwnProps 都是经过计算得到的
     proxy.dependsOnOwnProps = true
 
     proxy.mapToProps = function detectFactoryAndVerify(
